@@ -4,26 +4,25 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby starter ecommerce',
-    author: 'Parminder Sanghera',
-    description: 'A starter e-commerce site made using Gatsby.',
+    title: 'Bellahway Apartments',
+    author: 'Diane Burgoyne',
+    description: 'Find your next home.',
     siteUrl: 'https://parmsang.github.io/gatsby-starter-ecommerce/',
   },
   pathPrefix: '/gatsby-starter-ecommerce',
   plugins: [
     {
-      resolve: '@moltin/gatsby-source-moltin',
+      resolve: `gatsby-source-filesystem`,
       options: {
-        client_id:
-          process.env.MOLTIN_CLIENT_ID ||
-          'j6hSilXRQfxKohTndUuVrErLcSJWP15P347L6Im0M4',
+        path: `${__dirname}/src/pages`,
+        name: 'pages',
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/src/pages`,
-        name: 'pages',
+        name: `properties`,
+        path: `${__dirname}/src/properties/`,
       },
     },
     {
@@ -34,6 +33,21 @@ module.exports = {
       },
     },
     `gatsby-transformer-sharp`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        // CommonMark mode (default: true)
+        commonmark: true,
+        // Footnotes mode (default: true)
+        footnotes: true,
+        // Pedantic mode (default: true)
+        pedantic: true,
+        // GitHub Flavored Markdown mode (default: true)
+        gfm: true,
+        // Plugins configs
+        plugins: [],
+      },
+    },
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-google-analytics`,
@@ -54,9 +68,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: 'Gatsby Shop App',
-        short_name: 'Shop App',
-        start_url: '/gatsby-starter-ecommerce/',
+        name: 'Bellahway Apartments',
+        short_name: 'Bellahway',
+        start_url: '/',
         background_color: '#ffffff',
         theme_color: '#ffffff',
         display: 'minimal-ui',

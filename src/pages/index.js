@@ -1,13 +1,11 @@
 import React from 'react'
-import {graphql, useStaticQuery} from 'gatsby'
+import {graphql, useStaticQuery, Link} from 'gatsby'
 import get from 'lodash/get'
-import {Image, Header} from 'semantic-ui-react'
-import ProductList from '../components/ProductList'
+import {Header} from 'semantic-ui-react'
 import SEO from '../components/SEO'
-import logo from '../images/ill-short-dark.svg'
 import Layout from '../components/Layout'
 
-const StoreIndex = ({location}) => {
+const PropertyIndex = ({location}) => {
   const data = useStaticQuery(graphql`
     query IndexQuery {
       site {
@@ -15,31 +13,26 @@ const StoreIndex = ({location}) => {
           title
         }
       }
-      allMoltinProduct {
+      allMarkdownRemark {
         edges {
           node {
+            frontmatter {
+              slug
+              title
+              address
+              area
+              thumbnail {
+                childImageSharp {
+                  fluid(maxWidth: 400) {
+                    src
+                    srcSet
+                    sizes
+                  }
+                }
+              }
+            }
             id
-            name
-            description
-            background_colour
-            new
-            mainImageHref
-            meta {
-              display_price {
-                with_tax {
-                  amount
-                  currency
-                  formatted
-                }
-              }
-            }
-            mainImage {
-              childImageSharp {
-                sizes(maxWidth: 600) {
-                  ...GatsbyImageSharpSizes
-                }
-              }
-            }
+            html
           }
         }
       }
@@ -47,8 +40,8 @@ const StoreIndex = ({location}) => {
   `)
 
   const siteTitle = get(data, 'site.siteMetadata.title')
-  const products = get(data, 'allMoltinProduct.edges')
-  const filterProductsWithoutImages = products.filter(v => v.node.mainImageHref)
+  const properties = get(data, 'allMarkdownRemark.edges')
+
   return (
     <Layout location={location}>
       <SEO title={siteTitle} />
@@ -66,12 +59,60 @@ const StoreIndex = ({location}) => {
             margin: '0 auto',
           }}
         >
-          <Image src={logo} alt="logo" />
+          {/* <Image src={logo} alt="logo" /> */}
+          <h1>Bellahway Apartments</h1>
+          <h4>Find your next M.E. home!</h4>
         </Header.Content>
       </Header>
-      <ProductList products={filterProductsWithoutImages} />
+
+      <div className="ui two column grid">
+        {properties.map(property => (
+          <div className="column" key={property.node.id}>
+            <div className="ui fluid card">
+              <Link
+                className="image"
+                to={`properties/${property.node.frontmatter.slug}/`}
+              >
+                <img
+                  src={
+                    property.node.frontmatter.thumbnail.childImageSharp.fluid
+                      .src
+                  }
+                  alt=""
+                />
+              </Link>
+
+              <div className="content">
+                <Link to={`properties/${property.node.frontmatter.slug}/`}>
+                  {property.node.frontmatter.title}
+                </Link>
+                <div className="meta">
+                  <Link to={`properties/${property.node.frontmatter.slug}/`}>
+                    {property.node.frontmatter.address}
+                  </Link>
+                </div>
+              </div>
+              <div className="ui buttons">
+                <Link
+                  to={`properties/${property.node.frontmatter.slug}/`}
+                  className="ui button blue"
+                >
+                  View Property
+                </Link>
+                <div className="or"></div>
+                <Link
+                  to={`properties/${property.node.frontmatter.slug}/#apply`}
+                  className="ui positive button"
+                >
+                  Apply
+                </Link>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </Layout>
   )
 }
 
-export default StoreIndex
+export default PropertyIndex

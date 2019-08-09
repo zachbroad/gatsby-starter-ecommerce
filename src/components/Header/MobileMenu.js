@@ -10,7 +10,6 @@ import {
   Button,
 } from 'semantic-ui-react'
 import styled from 'styled-components'
-import ShoppingCartIcon from './ShoppingCartIcon'
 import Logo from './Logo'
 
 const StyledLink = styled(Link)`
@@ -67,7 +66,7 @@ const StyledDivider = styled(Divider)`
   }
 `
 
-const MobileMenu = ({location: {pathname}, token, cartCount, signout}) => {
+const MobileMenu = ({location: {pathname}}) => {
   const [activeItem, setActiveItem] = useState(pathname)
   const [open, setOpen] = useState(false)
 
@@ -89,16 +88,9 @@ const MobileMenu = ({location: {pathname}, token, cartCount, signout}) => {
           active={activeItem === withPrefix('/')}
         >
           <Logo />
-          Store
+          Bellahway Apartment
         </Menu.Item>
         <Menu.Menu position="right">
-          <Menu.Item
-            as={Link}
-            to="/cart/"
-            active={activeItem === withPrefix('/cart/')}
-          >
-            <ShoppingCartIcon cartCount={cartCount} name="" />
-          </Menu.Item>
           <Menu.Item position="right">
             <BurgerButton
               basic
@@ -126,29 +118,14 @@ const MobileMenu = ({location: {pathname}, token, cartCount, signout}) => {
                 Home
               </StyledLink>
               <StyledDivider />
-              <StyledLink to="/cart/" onClick={handleClose}>
-                {`Shopping Cart ${cartCount ? `(${cartCount})` : ''}`}
+              <StyledLink to="/" onClick={handleClose}>
+                Our Properties
               </StyledLink>
               <StyledDivider />
-              {token
-                ? [
-                    <StyledLink to="/myaccount/" onClick={handleClose} key={1}>
-                      My Account
-                    </StyledLink>,
-                    <StyledDivider key={2} />,
-                    <StyledLink to="/" onClick={signout} key={3}>
-                      Sign out
-                    </StyledLink>,
-                  ]
-                : [
-                    <StyledLink to="/register/" onClick={handleClose} key={1}>
-                      Sign Up
-                    </StyledLink>,
-                    <StyledDivider key={2} />,
-                    <StyledLink to="/login/" onClick={handleClose} key={3}>
-                      Sign In
-                    </StyledLink>,
-                  ]}
+              <StyledLink to="/apply/" onClick={handleClose}>
+                Apply
+              </StyledLink>
+              <StyledDivider />
             </StyledContainer>
           </StyledSegment>
         </Portal>

@@ -45,7 +45,7 @@ const Footer = () => (
             <Header as="h4" content="Services" />
             <List>
               <List.Item as={Link} to="/">
-                Our Products
+                Our Properties
               </List.Item>
             </List>
           </Grid.Column>

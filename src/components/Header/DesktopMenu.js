@@ -21,7 +21,7 @@ const DesktopMenu = ({location: {pathname}, token, cartCount, signout}) => {
           header
         >
           <Logo />
-          Starter Store
+          Bellahway Apartments
         </Menu.Item>
         {token ? (
           <Menu.Menu position="right">
@@ -46,24 +46,10 @@ const DesktopMenu = ({location: {pathname}, token, cartCount, signout}) => {
           <Menu.Menu position="right">
             <Menu.Item
               as={Link}
-              to="/register/"
-              active={activeItem === withPrefix('/register/')}
+              to="/"
+              active={activeItem === withPrefix('/properties/')}
             >
-              Sign up
-            </Menu.Item>
-            <Menu.Item
-              as={Link}
-              to="/login/"
-              active={activeItem === withPrefix('/login/')}
-            >
-              Sign in
-            </Menu.Item>
-            <Menu.Item
-              as={Link}
-              to="/cart/"
-              active={activeItem === withPrefix('/cart/')}
-            >
-              <ShoppingCartIcon cartCount={cartCount} name="Cart" />
+              Our Properties
             </Menu.Item>
           </Menu.Menu>
         )}

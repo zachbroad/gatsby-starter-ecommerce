@@ -1,6 +1,6 @@
 /* eslint-disable */
 import React from 'react'
-import {graphql} from 'gatsby'
+import {graphql, Link} from 'gatsby'
 import SEO from '../components/SEO'
 import get from 'lodash/get'
 import ProductSummary from '../components/ProductSummary'
@@ -25,11 +25,23 @@ class PropertyListingTemplate extends React.PureComponent {
       <Layout location={this.props.location}>
         <SEO title={slug} />
 
-        <h1>{title}</h1>
-        <h4>{address}</h4>
-        <p>{area} sq/ft</p>
-        <br />
-        <img src={thumbnail.src} alt="" />
+        <div className="ui bordered wide">
+          <div className="image">
+            <img className="ui fluid image" src={thumbnail.src} alt="" />
+          </div>
+
+          <h1>{title}</h1>
+          <h4>{address}</h4>
+          <p>{area} sq/ft</p>
+        </div>
+        <div className="three ui buttons">
+          <Link to={`properties/`} className="ui button wide positive">
+            Apply
+          </Link>
+          <Link to={`properties/`} className="ui button wide lightgrey">
+            Share
+          </Link>
+        </div>
         <div dangerouslySetInnerHTML={{__html: data.html}}></div>
       </Layout>
     )

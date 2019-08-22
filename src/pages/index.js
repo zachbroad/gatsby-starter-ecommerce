@@ -60,56 +60,60 @@ const PropertyIndex = ({location}) => {
           }}
         >
           {/* <Image src={logo} alt="logo" /> */}
-          <h1>Bellahway Apartments</h1>
-          <h4>Find your next M.E. home!</h4>
+          <div className="text-center">
+            <h1 className="text-xl">Bellahway Apartments</h1>
+            <h4 className={'text-xs'}>Find your next M.E. home!</h4>
+          </div>
         </Header.Content>
       </Header>
 
-      <div className="ui two column grid">
-        {properties.map(property => (
-          <div className="column" key={property.node.id}>
-            <div className="ui fluid card">
-              <Link
-                className="image"
-                to={`properties/${property.node.frontmatter.slug}/`}
-              >
-                <img
-                  src={
-                    property.node.frontmatter.thumbnail.childImageSharp.fluid
-                      .src
-                  }
-                  alt=""
-                />
-              </Link>
-
-              <div className="content">
-                <Link to={`properties/${property.node.frontmatter.slug}/`}>
-                  {property.node.frontmatter.title}
+      <div className="container-md mx-auto">
+        <div className="flex flex-row flex-wrap">
+          {properties.map(property => (
+            <div className="w-1/2 max-w-sm rounded overflow-hidden shadow-lg">
+              <div className="ui fluid card">
+                <Link
+                  className="image"
+                  to={`properties/${property.node.frontmatter.slug}/`}
+                >
+                  <img
+                    className={'w-full'}
+                    src={
+                      property.node.frontmatter.thumbnail.childImageSharp.fluid
+                        .src
+                    }
+                    alt=""
+                  />
                 </Link>
-                <div className="meta">
+
+                <div className="content">
                   <Link to={`properties/${property.node.frontmatter.slug}/`}>
-                    {property.node.frontmatter.address}
+                    {property.node.frontmatter.title}
+                  </Link>
+                  <div className="meta">
+                    <Link to={`properties/${property.node.frontmatter.slug}/`}>
+                      {property.node.frontmatter.address}
+                    </Link>
+                  </div>
+                </div>
+                <div className="flex flex-row">
+                  <Link
+                    to={`properties/${property.node.frontmatter.slug}/`}
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >
+                    View
+                  </Link>
+                  <Link
+                    to={`properties/${property.node.frontmatter.slug}/#apply`}
+                    className="bg-green-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  >
+                    Apply
                   </Link>
                 </div>
               </div>
-              <div className="ui buttons">
-                <Link
-                  to={`properties/${property.node.frontmatter.slug}/`}
-                  className="ui button blue"
-                >
-                  View Property
-                </Link>
-                <div className="or"></div>
-                <Link
-                  to={`properties/${property.node.frontmatter.slug}/#apply`}
-                  className="ui positive button"
-                >
-                  Apply
-                </Link>
-              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </Layout>
   )
